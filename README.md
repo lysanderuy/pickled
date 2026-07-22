@@ -1,9 +1,9 @@
 # Pickled
 
 A fully-owned booking and management system for pickleball facility owners in
-Cebu. This is the intentionally barebones demo build (white background, black
-borders, no styling) used to validate functionality with real facilities
-before any visual identity is applied.
+Cebu. This first pass is deliberately unstyled (white background, black
+borders) — functionality is validated with real facilities first; the visual
+identity comes in a later pass.
 
 **This pass covers the admin side only.** Deferred by design: the public
 customer side (facility overview + public booking flow), all email features

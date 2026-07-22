@@ -21,7 +21,7 @@ const defaultHours = JSON.stringify({
 
 const [facility] = await sql`
   insert into facility_profile (name, address, contact_phone, contact_email, operating_hours)
-  select 'Pickled Demo Facility', 'Cebu City', '', '', ${defaultHours}::jsonb
+  select 'Pickled Facility', 'Cebu City', '', '', ${defaultHours}::jsonb
   where not exists (select 1 from facility_profile)
   returning id, name
 `;

@@ -208,7 +208,7 @@ function InviteStaffForm() {
     <section>
       <h2 className="mb-2 font-bold">Add staff member</h2>
       <p className="mb-2 text-sm">
-        The member is created as invited. Invite emails are not sent in this demo pass.
+        The member is created as invited. Invite emails are not sent in this pass.
       </p>
       <form
         className="flex max-w-2xl flex-wrap items-end gap-3"
