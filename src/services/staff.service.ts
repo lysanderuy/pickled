@@ -35,7 +35,7 @@ export const staffService = {
     return db.query.staff.findMany({ orderBy: asc(staff.fullName) });
   },
 
-  // Invite emails are parked — the row is created as `invited`, nothing is sent.
+  // No invite email is sent — the row is created as `invited`, nothing else happens.
   async create(input: InviteStaffInput): Promise<Staff> {
     const facility = await facilityService.get();
     const existing = await db.query.staff.findFirst({ where: eq(staff.email, input.email) });

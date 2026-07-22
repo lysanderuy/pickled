@@ -1,18 +1,11 @@
 # Pickled
 
 A fully-owned booking and management system for pickleball facility owners in
-Cebu. This first pass is deliberately unstyled (white background, black
-borders) — functionality is validated with real facilities first; the visual
-identity comes in a later pass.
-
-**This pass covers the admin side only.** Deferred by design: the public
-customer side (facility overview + public booking flow), all email features
-(staff invite emails — invited staff can't log in yet), and Analytics
-(placeholder page; metrics will be chosen after facility outreach).
+Cebu — bookings, calendar, courts, tiered rates, customers, standing
+reservations, and sales, all behind a staff login.
 
 Single-tenant: one deployment per facility. The `facility_profile` row is a
-seeded singleton; every table still carries `facility_id` for
-forward-compatibility with the real product build.
+seeded singleton; every table carries `facility_id`.
 
 ## Stack
 
@@ -36,7 +29,7 @@ forward-compatibility with the real product build.
 Dashboard (pending queue + today), Bookings, Calendar (day grid per court),
 Courts, Rates (tiered pricing rules), Customers, Recurring bookings (standing
 weekly reservations), Sales (with void audit trail), Team (owner_admin only),
-Settings (facility profile + operating hours), Analytics (placeholder).
+Settings (facility profile + operating hours).
 
 Two roles: `owner_admin` and `staff`. They differ only in Team access and the
 ability to void sales.
@@ -67,9 +60,9 @@ ability to void sales.
    links the first auth user as an active `owner_admin` staff row.
 5. `npm run dev` — sign in at `/login`, land on `/dashboard`.
 
-There is no public signup page: this is a staff-only system. Team members are
-added in the Team module, but their invite emails are part of the deferred
-email pass — until then only seeded accounts can log in.
+There is no public signup page: this is a staff-only system. Invite emails
+are not sent — only auth users linked to a staff row can sign in, and the
+seed links the first one.
 
 ## Architecture
 

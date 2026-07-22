@@ -207,9 +207,7 @@ function InviteStaffForm() {
   return (
     <section>
       <h2 className="mb-2 font-bold">Add staff member</h2>
-      <p className="mb-2 text-sm">
-        The member is created as invited. Invite emails are not sent in this pass.
-      </p>
+      <p className="mb-2 text-sm">The member is created as invited. Invite emails are not sent.</p>
       <form
         className="flex max-w-2xl flex-wrap items-end gap-3"
         onSubmit={(e) => {
