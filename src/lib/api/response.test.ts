@@ -25,6 +25,26 @@ describe("apiError", () => {
 });
 
 describe("handleApiError", () => {
+  it("serializes a ServiceError's status, code, and details", async () => {
+    const { ServiceError } = await import("./errors");
+    const response = handleApiError(
+      new ServiceError("already exists", 409, { customerId: "c1" }, "duplicate_customer"),
+    );
+    expect(response.status).toBe(409);
+    await expect(response.json()).resolves.toEqual({
+      success: false,
+      error: "already exists",
+      code: "duplicate_customer",
+      details: { customerId: "c1" },
+    });
+  });
+
+  it("omits code and details when a ServiceError has none", async () => {
+    const { ServiceError } = await import("./errors");
+    const response = handleApiError(new ServiceError("not found", 404));
+    await expect(response.json()).resolves.toEqual({ success: false, error: "not found" });
+  });
+
   it("formats ZodError issues into a 422 response", async () => {
     const schema = z.object({ displayName: z.string().min(1) });
     const result = schema.safeParse({ displayName: "" });
