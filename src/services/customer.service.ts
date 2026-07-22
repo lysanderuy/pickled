@@ -31,8 +31,8 @@ export const customerService = {
     });
   },
 
-  // Manual add (§3.8 variant): a phone/email match surfaces a conflict instead
-  // of silently linking — staff explicitly intend to create a record here.
+  // Manual add: a phone/email match surfaces a conflict instead of silently
+  // linking — staff explicitly intend to create a record here.
   async create(
     input: CreateCustomerInput,
     options?: { allowDuplicate?: boolean },

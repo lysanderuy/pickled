@@ -37,7 +37,7 @@ export const saleService = {
         where: eq(bookings.id, input.bookingId),
       });
       if (!booking) throw new ServiceError("Booking not found", 404);
-      // Attribution follows the booking's customer when linked (§5).
+      // Attribution follows the booking's customer when linked.
       customerId = booking.customerId;
     }
     const [created] = await db

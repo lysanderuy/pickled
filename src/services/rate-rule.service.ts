@@ -68,8 +68,8 @@ export const rateRuleService = {
     await db.delete(rateRules).where(eq(rateRules.id, id));
   },
 
-  // §3.6a: court-specific beats facility-wide, then higher priority, else the
-  // court's flat hourly_rate. Returns a per-hour rate.
+  // Rate resolution order: court-specific beats facility-wide, then higher
+  // priority, else the court's flat hourly_rate. Returns a per-hour rate.
   async resolveRate(courtId: string, dayOfWeek: number, startTime: string): Promise<number> {
     const court = await db.query.courts.findFirst({ where: eq(courts.id, courtId) });
     if (!court) throw new ServiceError("Court not found", 404);

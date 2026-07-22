@@ -12,9 +12,9 @@ import {
 } from "@/lib/operating-hours";
 import type { OperatingHours, UpdateFacilityInput } from "@/validators/facility.validator";
 
-// §3.6's invariant runs both ways: court overrides are validated against
-// facility hours on court save, so shrinking facility hours must not silently
-// orphan existing overrides or active standing reservations.
+// The effective-hours invariant runs both ways: court overrides are validated
+// against facility hours on court save, so shrinking facility hours must not
+// silently orphan existing overrides or active standing reservations.
 async function assertHoursChangeIsSafe(newHours: OperatingHours): Promise<void> {
   const problems: string[] = [];
 

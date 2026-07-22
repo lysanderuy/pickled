@@ -50,7 +50,7 @@ const calendarStatuses = ["pending_confirmation", "confirmed", "completed", "no_
 
 const round2 = (n: number) => Math.round(n * 100) / 100;
 
-// §3.1/§3.2 lazy expiry — one set-based UPDATE, no background job.
+// Lazy hold expiry — one set-based UPDATE, no background job.
 async function expireLapsedHolds(): Promise<void> {
   await db
     .update(bookings)
@@ -64,7 +64,7 @@ async function expireLapsedHolds(): Promise<void> {
     );
 }
 
-// §3.3 on-demand materialization for the rolling now → +8 weeks window.
+// On-demand materialization for the rolling now → +8 weeks window.
 // Paused/cancelled templates stop generating but keep already-materialized rows.
 async function materializeRecurring(): Promise<void> {
   const facility = await facilityService.get();
@@ -150,7 +150,7 @@ async function materializeRecurring(): Promise<void> {
   }
 }
 
-// §3.1: blocked by confirmed bookings and pending ones whose hold hasn't lapsed.
+// Blocked by confirmed bookings and pending ones whose hold hasn't lapsed.
 // Admin-held pendings have no hold_expires_at and block indefinitely.
 async function assertNoConflict(
   courtId: string,
@@ -183,7 +183,8 @@ async function assertNoConflict(
   }
 }
 
-// §3.8: phone match → email match → create. The stored name stays canonical.
+// Customer resolution: phone match → email match → create. The stored name
+// stays canonical — a differently-typed name on a booking never overwrites it.
 async function resolveCustomer(
   tx: Tx,
   facilityId: string,
@@ -267,7 +268,7 @@ export const bookingService = {
     const court = await db.query.courts.findFirst({ where: eq(courts.id, input.courtId) });
     if (!court) throw new ServiceError("Court not found", 404);
     // Maintenance/inactive courts are still bookable by staff — the soft
-    // warning is client-side (§5).
+    // warning is client-side.
     assertWithinEffectiveHours(
       court,
       facility.operatingHours,
@@ -348,7 +349,7 @@ export const bookingService = {
       await assertNoConflict(courtId, bookingDate, startTime, endTime, id);
     }
 
-    // rate_amount is a snapshot — never recomputed on edit (§3.6a).
+    // rate_amount is a snapshot — never recomputed on edit.
     const [updated] = await db
       .update(bookings)
       .set({ courtId, bookingDate, startTime, endTime, notes: input.notes, updatedAt: new Date() })
@@ -357,7 +358,7 @@ export const bookingService = {
     return updated;
   },
 
-  // §3.1: staff can confirm even after the hold lapsed (status already flipped
+  // Staff can confirm even after the hold lapsed (status already flipped
   // to expired) — the conflict re-check decides, not the hold.
   async confirm(id: string): Promise<Booking> {
     await expireLapsedHolds();
@@ -412,7 +413,7 @@ export const bookingService = {
     return updated;
   },
 
-  // §3.4: mark paid, optionally auto-creating the linked sales row in one action.
+  // Mark paid, optionally auto-creating the linked sales row in one action.
   async recordPayment(
     id: string,
     input: RecordBookingPaymentInput,

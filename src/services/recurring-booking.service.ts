@@ -38,9 +38,9 @@ interface TemplateSlot {
   endsOn?: string | null;
 }
 
-// §3.1 for templates: a standing reservation must not overlap another active
-// template on the same court/day, nor any blocking booking it would
-// materialize on top of within the generation window.
+// The conflict rule applied to templates: a standing reservation must not
+// overlap another active template on the same court/day, nor any blocking
+// booking it would materialize on top of within the generation window.
 async function assertTemplateSlotFree(
   slot: TemplateSlot,
   timezone: string,

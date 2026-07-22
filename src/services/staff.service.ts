@@ -11,7 +11,7 @@ import { facilityService } from "./facility.service";
 
 type Tx = Parameters<Parameters<typeof db.transaction>[0]>[0];
 
-// §5 last-owner-admin safeguard: the facility must never lose admin access.
+// Last-owner-admin safeguard: the facility must never lose admin access.
 // FOR UPDATE locks the active owner_admin rows so two concurrent demotions
 // serialize — the second re-reads and sees the first one's result.
 async function assertNotLastActiveOwnerAdmin(tx: Tx, excludedStaffId: string): Promise<void> {

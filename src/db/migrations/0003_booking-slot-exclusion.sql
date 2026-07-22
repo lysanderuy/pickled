@@ -1,4 +1,4 @@
--- DB-level backstop for the §3.1 conflict rule: two blocking bookings can
+-- DB-level backstop for the booking conflict rule: two blocking bookings can
 -- never overlap on the same court+date, no matter how requests race. The app
 -- flips lapsed holds to `expired` before writing, so `pending_confirmation`
 -- here always means a live hold. 23P01 violations map to 409 in handleApiError.
