@@ -1,6 +1,6 @@
 {
-  "id": "34e14bdb-2250-44ec-b744-479ffc6fab98",
-  "prevId": "00000000-0000-0000-0000-000000000000",
+  "id": "c494f983-0ae5-43a2-8b80-ef37b896a4a6",
+  "prevId": "0613bdcf-5675-42cd-8fc3-d7d406b78168",
   "version": "7",
   "dialect": "postgresql",
   "tables": {
@@ -91,12 +91,6 @@
           "notNull": true,
           "default": "'unpaid'"
         },
-        "created_by_staff_id": {
-          "name": "created_by_staff_id",
-          "type": "uuid",
-          "primaryKey": false,
-          "notNull": false
-        },
         "notes": {
           "name": "notes",
           "type": "text",
@@ -154,6 +148,27 @@
           "concurrently": false,
           "method": "btree",
           "with": {}
+        },
+        "uq_bookings_recurring_occurrence": {
+          "name": "uq_bookings_recurring_occurrence",
+          "columns": [
+            {
+              "expression": "recurring_booking_id",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            },
+            {
+              "expression": "booking_date",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            }
+          ],
+          "isUnique": true,
+          "concurrently": false,
+          "method": "btree",
+          "with": {}
         }
       },
       "foreignKeys": {
@@ -202,19 +217,6 @@
           "tableTo": "customers",
           "columnsFrom": [
             "customer_id"
-          ],
-          "columnsTo": [
-            "id"
-          ],
-          "onDelete": "no action",
-          "onUpdate": "no action"
-        },
-        "bookings_created_by_staff_id_staff_id_fk": {
-          "name": "bookings_created_by_staff_id_staff_id_fk",
-          "tableFrom": "bookings",
-          "tableTo": "staff",
-          "columnsFrom": [
-            "created_by_staff_id"
           ],
           "columnsTo": [
             "id"
@@ -929,12 +931,6 @@
           "primaryKey": false,
           "notNull": true
         },
-        "sold_by_staff_id": {
-          "name": "sold_by_staff_id",
-          "type": "uuid",
-          "primaryKey": false,
-          "notNull": true
-        },
         "sale_date": {
           "name": "sale_date",
           "type": "date",
@@ -944,12 +940,6 @@
         "voided_at": {
           "name": "voided_at",
           "type": "timestamp with time zone",
-          "primaryKey": false,
-          "notNull": false
-        },
-        "voided_by_staff_id": {
-          "name": "voided_by_staff_id",
-          "type": "uuid",
           "primaryKey": false,
           "notNull": false
         },
@@ -1017,32 +1007,6 @@
           "tableTo": "customers",
           "columnsFrom": [
             "customer_id"
-          ],
-          "columnsTo": [
-            "id"
-          ],
-          "onDelete": "no action",
-          "onUpdate": "no action"
-        },
-        "sales_sold_by_staff_id_staff_id_fk": {
-          "name": "sales_sold_by_staff_id_staff_id_fk",
-          "tableFrom": "sales",
-          "tableTo": "staff",
-          "columnsFrom": [
-            "sold_by_staff_id"
-          ],
-          "columnsTo": [
-            "id"
-          ],
-          "onDelete": "no action",
-          "onUpdate": "no action"
-        },
-        "sales_voided_by_staff_id_staff_id_fk": {
-          "name": "sales_voided_by_staff_id_staff_id_fk",
-          "tableFrom": "sales",
-          "tableTo": "staff",
-          "columnsFrom": [
-            "voided_by_staff_id"
           ],
           "columnsTo": [
             "id"

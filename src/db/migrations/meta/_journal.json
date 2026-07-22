@@ -5,22 +5,36 @@
     {
       "idx": 0,
       "version": "7",
-      "when": 1781096432184,
-      "tag": "0000_create_profiles",
+      "when": 1784725525480,
+      "tag": "0000_create-pickled-tables",
       "breakpoints": true
     },
     {
       "idx": 1,
       "version": "7",
-      "when": 1781096448723,
-      "tag": "0001_auth-trigger-and-rls",
+      "when": 1784725541653,
+      "tag": "0001_rls-and-auth-fk",
       "breakpoints": true
     },
     {
       "idx": 2,
       "version": "7",
-      "when": 1781353844149,
-      "tag": "0002_profiles_welcome_email_sent_at",
+      "when": 1784730764247,
+      "tag": "0002_uq-recurring-occurrence",
+      "breakpoints": true
+    },
+    {
+      "idx": 3,
+      "version": "7",
+      "when": 1784734811571,
+      "tag": "0003_booking-slot-exclusion",
+      "breakpoints": true
+    },
+    {
+      "idx": 4,
+      "version": "7",
+      "when": 1784735457116,
+      "tag": "0004_drop-staff-attribution",
       "breakpoints": true
     }
   ]

@@ -1,0 +1,1 @@
+CREATE UNIQUE INDEX "uq_bookings_recurring_occurrence" ON "bookings" USING btree ("recurring_booking_id","booking_date");
