@@ -1,4 +1,4 @@
-import type { ApiResponse } from "@/types/api";
+import type { ApiErrorCode, ApiResponse } from "@/types/api";
 
 // Client-side fetch wrapper.
 
@@ -6,6 +6,8 @@ export class ApiError extends Error {
   constructor(
     message: string,
     public readonly status: number,
+    public readonly code?: ApiErrorCode,
+    public readonly details?: Record<string, unknown>,
   ) {
     super(message);
     this.name = "ApiError";
@@ -27,7 +29,7 @@ export async function apiFetch<T>(path: string, init?: RequestInit): Promise<T> 
     throw new ApiError("Invalid response from server", res.status);
   }
   if (!json.success) {
-    throw new ApiError(json.error, res.status);
+    throw new ApiError(json.error, res.status, json.code, json.details);
   }
 
   return json.data;
