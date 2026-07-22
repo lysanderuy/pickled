@@ -15,8 +15,8 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "starter-stack",
-  description: "Next.js + Supabase + Drizzle + Zod boilerplate",
+  title: "Pickled",
+  description: "Booking and management system for pickleball facilities",
 };
 
 export default function RootLayout({
