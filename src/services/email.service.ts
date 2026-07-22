@@ -3,7 +3,6 @@ import "server-only";
 import { Resend } from "resend";
 
 import { env } from "@/lib/env";
-import { WelcomeEmail } from "@/emails/welcome-email";
 import { ConfirmSignupEmail } from "@/emails/confirm-signup-email";
 import { ResetPasswordEmail } from "@/emails/reset-password-email";
 
@@ -23,34 +22,12 @@ function resend(): { client: Resend; from: string } {
   return { client, from: env.RESEND_FROM_EMAIL };
 }
 
-export interface SendWelcomeEmailInput {
-  to: string;
-  name: string;
-  dashboardUrl: string;
-}
-
 export interface SendAuthEmailInput {
   to: string;
   url: string;
 }
 
 export const emailService = {
-  async sendWelcome({ to, name, dashboardUrl }: SendWelcomeEmailInput): Promise<string> {
-    const { client, from } = resend();
-    const { data, error } = await client.emails.send({
-      from,
-      to,
-      subject: `Welcome, ${name}`,
-      react: WelcomeEmail({ name, dashboardUrl }),
-    });
-
-    if (error) {
-      throw new Error(`Resend send failed: ${error.message}`);
-    }
-
-    return data.id;
-  },
-
   async sendConfirmSignup({ to, url }: SendAuthEmailInput): Promise<string> {
     const { client, from } = resend();
     const { data, error } = await client.emails.send({
