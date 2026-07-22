@@ -87,4 +87,4 @@ before adding jsdom, Testing Library, or DB mocking.
 
 ## Commits
 
-Conventional Commits, split by concern (`feat:`, `fix:`, `docs:`, `chore:`, ...). Subject line only — no body, no Co-Authored-By trailer.
+Format: `[Type][Lysan] Description` — e.g. `[Feature][Lysan] Add booking calendar`. Types: Feature, Fix, Hotfix, Database, Enhancement, UI/UX, CI, Chore, Docs, etc. Split by concern. Subject line only — no body, no Co-Authored-By trailer.
