@@ -41,10 +41,14 @@ export const customerService = {
     if (!options?.allowDuplicate) {
       const duplicate =
         (input.phone
-          ? await db.query.customers.findFirst({ where: eq(customers.phone, input.phone) })
+          ? await db.query.customers.findFirst({
+              where: and(eq(customers.facilityId, facility.id), eq(customers.phone, input.phone)),
+            })
           : undefined) ??
         (input.email
-          ? await db.query.customers.findFirst({ where: eq(customers.email, input.email) })
+          ? await db.query.customers.findFirst({
+              where: and(eq(customers.facilityId, facility.id), eq(customers.email, input.email)),
+            })
           : undefined);
       if (duplicate) {
         throw new ServiceError(
