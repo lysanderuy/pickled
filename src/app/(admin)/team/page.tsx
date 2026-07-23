@@ -12,7 +12,7 @@ import {
   useUpdateStaff,
 } from "@/hooks/use-staff";
 import type { StaffResponse } from "@/validators/staff.validator";
-import { staffRoles } from "@/validators/staff.validator";
+import { staffRoleLabels, staffRoles } from "@/validators/staff.validator";
 
 const input = "border border-black px-2 py-1";
 const button = "border border-black px-2 py-1 disabled:opacity-50";
@@ -107,7 +107,7 @@ function StaffRows({
         <td className={cell}>{member.fullName}</td>
         <td className={cell}>{member.email}</td>
         <td className={cell}>{member.phone ?? "-"}</td>
-        <td className={cell}>{member.role}</td>
+        <td className={cell}>{staffRoleLabels[member.role]}</td>
         <td className={cell}>{member.status}</td>
         <td className={cell}>{member.invitedAt ? member.invitedAt.slice(0, 10) : "-"}</td>
         <td className={cell}>
@@ -174,7 +174,7 @@ function EditStaffForm({ member, onDone }: { member: StaffResponse; onDone: () =
         >
           {staffRoles.map((r) => (
             <option key={r} value={r}>
-              {r}
+              {staffRoleLabels[r]}
             </option>
           ))}
         </select>
