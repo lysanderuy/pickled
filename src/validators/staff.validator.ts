@@ -3,6 +3,11 @@ import { z } from "zod";
 export const staffRoles = ["owner_admin", "staff"] as const;
 export const staffStatuses = ["invited", "active", "disabled"] as const;
 
+export const staffRoleLabels: Record<(typeof staffRoles)[number], string> = {
+  owner_admin: "Owner",
+  staff: "Staff",
+};
+
 export const inviteStaffSchema = z.object({
   fullName: z.string().min(1).max(200).meta({ example: "Juan dela Cruz" }),
   email: z.email().meta({ description: "Login identity — immutable once the invite is accepted." }),
